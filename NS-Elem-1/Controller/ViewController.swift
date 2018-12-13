@@ -10,12 +10,16 @@ import UIKit
 import Speech
 
 class ViewController: UIViewController {
-    @IBOutlet weak var questionLbl: UILabel!
-    @IBOutlet weak var answerTxt: UITextField!
     @IBOutlet weak var progressLbl: UILabel!
-    @IBOutlet weak var questionNumberLbl: UILabel!
     @IBOutlet weak var timerLbl: UILabel!
-    @IBOutlet weak var questionLabel: UILabel!
+
+    
+    @IBOutlet weak var numALbl: UILabel!
+    @IBOutlet weak var denALbl: UILabel!
+    @IBOutlet weak var numBLbl: UILabel!
+    @IBOutlet weak var denBLbl: UILabel!
+    @IBOutlet weak var numCTxt: UITextField!
+    @IBOutlet weak var denCTxt: UITextField!
     
     var randomPick: Int = 0
     var correctAnswers: Int = 0
@@ -24,14 +28,23 @@ class ViewController: UIViewController {
     var counter = 0.0
     
     var randomNumA : Int = 0
+    var randomDenA : Int = 0
     var randomNumB : Int = 0
+    var randomDenB : Int = 0
     var randomNumC : Int = 0
+    var randomDenC : Int = 0
     
-    var firstNum : Int = 0
-    var secondNum : Int = 0
-    var thirdNum : Int = 0
+    var numA : Int = 0
+    var denA : Int = 0
+    var numB : Int = 0
+    var denB : Int = 0
+    var numC : Int = 0
+    var denC : Int = 0
+    
     var questionTxt : String = ""
     var answerCorrect : Int = 0
+    var answerUserNum : Int = 0
+    var answerUserDen : Int = 0
     var answerUser : Int = 0
     
     let congratulateArray = ["Great Job", "Excellent", "Way to go", "Alright", "Right on", "Correct", "Well done", "Awesome","Give me a high five"]
@@ -45,7 +58,7 @@ class ViewController: UIViewController {
         timerLbl.text = "\(counter)"
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(ViewController.updateTimer), userInfo: nil, repeats: true)
         
-        self.answerTxt.becomeFirstResponder()
+        self.numCTxt.becomeFirstResponder()
     }
 
     @IBAction func checkAnswerByUser(_ sender: Any) {
@@ -53,18 +66,23 @@ class ViewController: UIViewController {
     }
     
     func askQuestion(){
-        //3 digit questions starting at 100
-        randomNumA = Int.random(in: 100 ..< 1001)
-        randomNumB = Int.random(in: 100 ..< 1001)
-        randomNumC = Int.random(in: 100 ..< 1001)
+        getAFraction()
+        getBFraction()
         
-        questionLabel.text = "\(randomNumA) + \(randomNumB) + \(randomNumC)"
-        readMe(myText: "What is \(randomNumA) plus \(randomNumB) plus \(randomNumC)?")
+        numALbl.text = String(numA)
+        denALbl.text = String(denA)
+        numBLbl.text = String(numB)
+        denBLbl.text = String(denB)
     }
     
     func checkAnswer(){
-        answerUser = (answerTxt.text! as NSString).integerValue
-        answerCorrect = randomNumA + randomNumB + randomNumC
+        
+        answerUserNum = (numCTxt.text! as NSString).integerValue
+        answerUserDen = (denCTxt.text! as NSString).integerValue
+        answerUserNum = answerUserNum / answerUserDen
+        
+        
+        answerCorrect = (numA/denA) + (numB/denB)
         
         if answerCorrect == answerUser {
             correctAnswers += 1
@@ -75,23 +93,51 @@ class ViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: when){
                 //next problem
                 self.askQuestion()
-                self.answerTxt.text = ""
-                
+                self.numCTxt.text = ""
+                self.denCTxt.text = ""
             }
         }
         else{
             randomTryAgain()
-            answerTxt.text = ""
+            numCTxt.text = ""
             numberAttempts += 1
             updateProgress()
         }
     }
+    
     
     @objc func updateTimer(){
         counter += 0.1
         timerLbl.text = String(format:"%.1f",counter)
     }
     
+    func getAFraction(){
+        randomNumA = Int.random(in: 1 ..< 13)
+        randomDenA = Int.random(in: 1 ..< 13)
+        
+        if randomNumA < randomDenA {
+            numA = randomNumA
+            denA = randomDenA
+        }
+        else {
+            numA = randomDenA
+            denA = randomNumA
+        }
+    }
+    func getBFraction(){
+        randomNumB = Int.random(in: 1 ..< 13)
+        randomDenB = Int.random(in: 1 ..< 13)
+        
+        if randomNumB < randomDenB {
+            numB = randomNumB
+            denB = randomDenB
+        }
+        else {
+            numB = randomDenB
+            denB = randomNumB
+        }
+    }
+
     func readMe( myText: String) {
         let utterance = AVSpeechUtterance(string: myText )
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
