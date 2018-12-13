@@ -42,10 +42,11 @@ class ViewController: UIViewController {
     var denC : Int = 0
     
     var questionTxt : String = ""
-    var answerCorrect : Int = 0
-    var answerUserNum : Int = 0
-    var answerUserDen : Int = 0
-    var answerUser : Int = 0
+    var answerCorrect : Double = 0
+    var answerCorrectSimplify : Double = 0
+    var answerUserNum : Double = 0
+    var answerUserDen : Double = 0
+    var answerUser : Double = 0
     
     let congratulateArray = ["Great Job", "Excellent", "Way to go", "Alright", "Right on", "Correct", "Well done", "Awesome","Give me a high five"]
     let retryArray = ["Try again","Oooops"]
@@ -73,18 +74,24 @@ class ViewController: UIViewController {
         denALbl.text = String(denA)
         numBLbl.text = String(numB)
         denBLbl.text = String(denB)
+        numCTxt.text = ""
+        denCTxt.text = ""
     }
     
     func checkAnswer(){
         
-        answerUserNum = (numCTxt.text! as NSString).integerValue
-        answerUserDen = (denCTxt.text! as NSString).integerValue
+        answerUserNum = (numCTxt.text! as NSString).doubleValue
+        answerUserDen = (denCTxt.text! as NSString).doubleValue
         answerUserNum = answerUserNum / answerUserDen
         
+        answerCorrect = Double((numA/denA) + (numB/denB))
+        let answerCorrectSimplify = simplifyFrac(x0: answerCorrect)
         
-        answerCorrect = (numA/denA) + (numB/denB)
+        print(answerUserNum)
+        print(answerCorrect)
+        print(answerCorrectSimplify.num)
         
-        if answerCorrect == answerUser {
+        if answerCorrectSimplify.num == Int(answerUserNum) && answerCorrectSimplify.den == Int(answerUserDen)  {
             correctAnswers += 1
             numberAttempts += 1
             updateProgress()
@@ -105,6 +112,19 @@ class ViewController: UIViewController {
         }
     }
     
+    typealias Rational = (num : Int, den : Int)
+    func simplifyFrac(x0 : Double, withPrecision eps : Double = 1.0E-6) -> Rational {
+        var x = x0
+        var a = floor(x)
+        var (h1, k1, h, k) = (1, 0, Int(a), 1)
+        
+        while x - a > eps * Double(k) * Double(k) {
+            x = 1.0/(x - a)
+            a = floor(x)
+            (h1, k1, h, k) = (h, k, h1 + Int(a) * h, k1 + Int(a) * k)
+        }
+        return (h, k)
+    }
     
     @objc func updateTimer(){
         counter += 0.1
