@@ -31,8 +31,6 @@ class ViewController: UIViewController {
     var randomDenA : Int = 0
     var randomNumB : Int = 0
     var randomDenB : Int = 0
-    var randomNumC : Int = 0
-    var randomDenC : Int = 0
     
     var numA : Int = 0
     var denA : Int = 0
@@ -65,10 +63,18 @@ class ViewController: UIViewController {
     @IBAction func checkAnswerByUser(_ sender: Any) {
         checkAnswer()
     }
-    
+    @IBAction func showBtn(_ sender: Any) {
+        print(numC)
+        print(denC)
+        numCTxt.text = String(numC)
+        denCTxt.text = String(denC)
+        numberAttempts += 1
+        updateProgress()
+    }
     func askQuestion(){
         getAFraction()
         getBFraction()
+        getSimplifiedAnswer()
         
         numALbl.text = String(numA)
         denALbl.text = String(denA)
@@ -79,24 +85,17 @@ class ViewController: UIViewController {
     }
     
     func checkAnswer(){
+        getSimplifiedAnswer()
         
         answerUserNum = (numCTxt.text! as NSString).doubleValue
         answerUserDen = (denCTxt.text! as NSString).doubleValue
         answerUser = answerUserNum / answerUserDen
         
-        answerCorrect = (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
-        let answerCorrectSimplify = simplifyFrac(x0: answerCorrect)
-        
-        print("Correct")
-        print(answerCorrectSimplify.num)
-        print(answerCorrectSimplify.den)
-
-        
         if numCTxt.text == "" || denCTxt.text == ""{
             randomTryAgain()
         }
         else {
-            if answerCorrectSimplify.num == Int(answerUserNum) && answerCorrectSimplify.den == Int(answerUserDen)  {
+            if numC == Int(answerUserNum) && denC == Int(answerUserDen)  {
                 correctAnswers += 1
                 numberAttempts += 1
                 updateProgress()
@@ -132,6 +131,12 @@ class ViewController: UIViewController {
             (h1, k1, h, k) = (h, k, h1 + Int(a) * h, k1 + Int(a) * k)
         }
         return (h, k)
+    }
+    func getSimplifiedAnswer(){
+        answerCorrect = (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
+        let answerCorrectSimplify = simplifyFrac(x0: answerCorrect)
+        numC = answerCorrectSimplify.num
+        denC = answerCorrectSimplify.den
     }
     
     @objc func updateTimer(){
