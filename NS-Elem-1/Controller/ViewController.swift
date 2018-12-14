@@ -45,6 +45,7 @@ class ViewController: UIViewController {
     var answerUserNum : Double = 0
     var answerUserDen : Double = 0
     var answerUser : Double = 0
+    var isShow: Bool = false
     
     let congratulateArray = ["Great Job", "Excellent", "Way to go", "Alright", "Right on", "Correct", "Well done", "Awesome","Give me a high five"]
     let retryArray = ["Try again","Oooops"]
@@ -70,6 +71,7 @@ class ViewController: UIViewController {
         denCTxt.text = String(denC)
         numberAttempts += 1
         updateProgress()
+        isShow = true
     }
     func askQuestion(){
         getAFraction()
@@ -96,10 +98,19 @@ class ViewController: UIViewController {
         }
         else {
             if numC == Int(answerUserNum) && denC == Int(answerUserDen)  {
-                correctAnswers += 1
-                numberAttempts += 1
-                updateProgress()
-                randomPositiveFeedback()
+                if isShow == false{
+                    correctAnswers += 1
+                    numberAttempts += 1
+                    updateProgress()
+                    randomPositiveFeedback()
+                }
+                else{
+                    numberAttempts += 1
+                    updateProgress()
+                    readMe(myText: "Next Question!")
+                    isShow = false
+                }
+
                 let when = DispatchTime.now() + 2
                 DispatchQueue.main.asyncAfter(deadline: when){
                     //next problem
