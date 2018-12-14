@@ -84,11 +84,6 @@ class ViewController: UIViewController {
         answerUserDen = (denCTxt.text! as NSString).doubleValue
         answerUser = answerUserNum / answerUserDen
         
-        print("Answers")
-        print(numCTxt.text)
-        print(answerUserNum)
-        print(answerUserDen)
-        
         answerCorrect = (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
         let answerCorrectSimplify = simplifyFrac(x0: answerCorrect)
         
