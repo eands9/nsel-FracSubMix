@@ -82,34 +82,47 @@ class ViewController: UIViewController {
         
         answerUserNum = (numCTxt.text! as NSString).doubleValue
         answerUserDen = (denCTxt.text! as NSString).doubleValue
-        answerUserNum = answerUserNum / answerUserDen
+        answerUser = answerUserNum / answerUserDen
         
-        answerCorrect = Double((numA/denA) + (numB/denB))
+        print("Answers")
+        print(numCTxt.text)
+        print(answerUserNum)
+        print(answerUserDen)
+        
+        answerCorrect = (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
         let answerCorrectSimplify = simplifyFrac(x0: answerCorrect)
         
-        print(answerUserNum)
-        print(answerCorrect)
+        print("Correct")
         print(answerCorrectSimplify.num)
+        print(answerCorrectSimplify.den)
+
         
-        if answerCorrectSimplify.num == Int(answerUserNum) && answerCorrectSimplify.den == Int(answerUserDen)  {
-            correctAnswers += 1
-            numberAttempts += 1
-            updateProgress()
-            randomPositiveFeedback()
-            let when = DispatchTime.now() + 2
-            DispatchQueue.main.asyncAfter(deadline: when){
-                //next problem
-                self.askQuestion()
-                self.numCTxt.text = ""
-                self.denCTxt.text = ""
+        if numCTxt.text == "" || denCTxt.text == ""{
+            randomTryAgain()
+        }
+        else {
+            if answerCorrectSimplify.num == Int(answerUserNum) && answerCorrectSimplify.den == Int(answerUserDen)  {
+                correctAnswers += 1
+                numberAttempts += 1
+                updateProgress()
+                randomPositiveFeedback()
+                let when = DispatchTime.now() + 2
+                DispatchQueue.main.asyncAfter(deadline: when){
+                    //next problem
+                    self.askQuestion()
+                    self.numCTxt.text = ""
+                    self.denCTxt.text = ""
+                }
+            }
+            else{
+                randomTryAgain()
+                numCTxt.text = ""
+                denCTxt.text = ""
+                numberAttempts += 1
+                updateProgress()
             }
         }
-        else{
-            randomTryAgain()
-            numCTxt.text = ""
-            numberAttempts += 1
-            updateProgress()
-        }
+
     }
     
     typealias Rational = (num : Int, den : Int)
@@ -135,12 +148,14 @@ class ViewController: UIViewController {
         randomNumA = Int.random(in: 1 ..< 13)
         randomDenA = Int.random(in: 1 ..< 13)
         
+        //divide numerator by 2 to make sure the numerator is as small as possible
+        // + 1 is to make sure we don't have a zero numerator
         if randomNumA < randomDenA {
-            numA = randomNumA
+            numA = randomNumA/2 + 1
             denA = randomDenA
         }
         else {
-            numA = randomDenA
+            numA = randomDenA/2 + 1
             denA = randomNumA
         }
     }
@@ -149,11 +164,11 @@ class ViewController: UIViewController {
         randomDenB = Int.random(in: 1 ..< 13)
         
         if randomNumB < randomDenB {
-            numB = randomNumB
+            numB = randomNumB/2 + 1
             denB = randomDenB
         }
         else {
-            numB = randomDenB
+            numB = randomDenB/2 + 1
             denB = randomNumB
         }
     }
