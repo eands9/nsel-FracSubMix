@@ -84,8 +84,6 @@ class ViewController: UIViewController {
         numberAttempts += 1
         updateProgress()
         isShow = true
-        
-        print("show numF is \(numF)")
     }
     func askQuestion(){
         
@@ -177,7 +175,6 @@ class ViewController: UIViewController {
                 updateProgress()
             }
         }
-        print("check numF is \(numF)")
     }
     
     typealias Rational = (num : Int, den : Int)
