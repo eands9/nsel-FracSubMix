@@ -84,6 +84,8 @@ class ViewController: UIViewController {
         numberAttempts += 1
         updateProgress()
         isShow = true
+        
+        print("show numF is \(numF)")
     }
     func askQuestion(){
         
@@ -158,7 +160,6 @@ class ViewController: UIViewController {
                     readMe(myText: "Next Question!")
                     isShow = false
                 }
-
                 let when = DispatchTime.now() + 2
                 DispatchQueue.main.asyncAfter(deadline: when){
                     //next problem
@@ -176,7 +177,7 @@ class ViewController: UIViewController {
                 updateProgress()
             }
         }
-
+        print("check numF is \(numF)")
     }
     
     typealias Rational = (num : Int, den : Int)
@@ -212,6 +213,9 @@ class ViewController: UIViewController {
         let answerCorrectSimplify = simplifyFrac(x0: fractionalPart)
         numC = answerCorrectSimplify.num
         denC = answerCorrectSimplify.den
+        
+        print("simplified numF is \(numF)")
+        print("answerCorrect is \(answerCorrect)")
     }
     
     @objc func updateTimer(){
