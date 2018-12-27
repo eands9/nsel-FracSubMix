@@ -78,10 +78,11 @@ class ViewController: UIViewController {
         checkAnswer()
     }
     @IBAction func showBtn(_ sender: Any) {
-        numCTxt.text = String(numC)
-        denCTxt.text = String(denC)
+        if numC > 0 {
+            numCTxt.text = String(numC)
+            denCTxt.text = String(denC)
+        }
         numFLbl.text = String(numF)
-        numberAttempts += 1
         updateProgress()
         isShow = true
     }
@@ -93,19 +94,26 @@ class ViewController: UIViewController {
         denBLbl.text = String(denB)
         numCTxt.text = ""
         denCTxt.text = ""
+        numDLbl.text = ""
+        numELbl.text = ""
         
         randomAWholeD = Int.random(in: 1...5)
         randomBWholeE = Int.random(in: 1...5)
         
         randomIndex = Int.random(in: 0...2)
+        print("askQuestion randomIndex is \(randomIndex)")
         switch randomIndex{
         case 0: //Generate only whole number for Frac A
             numD = randomAWholeD
+            numDLbl.text = String(numD)
          case 1: //Generate only whole number for Frac B
             numE = randomBWholeE
+            numELbl.text = String(numE)
         case 2:
             numD = randomAWholeD
+            numDLbl.text = String(numD)
             numE = randomBWholeE
+            numELbl.text = String(numE)
         default:
             numD = 999
             numE = 999
@@ -118,18 +126,10 @@ class ViewController: UIViewController {
         denALbl.text = String(denA)
         numBLbl.text = String(numB)
         denBLbl.text = String(denB)
-        numDLbl.text = String(numD)
-        numELbl.text = String(numE)
         numCTxt.text = ""
         denCTxt.text = ""
         numFLbl.text = ""
         
-        if Int(numDLbl.text!)! < 1{
-            numDLbl.text = ""
-        }
-        if Int(numELbl.text!)! < 1{
-            numELbl.text = ""
-        }
         self.numFLbl.becomeFirstResponder()
     }
     
@@ -141,11 +141,13 @@ class ViewController: UIViewController {
         answerUserWholeF = (numFLbl.text! as NSString).doubleValue
         answerUser = answerUserWholeF + (answerUserNum / answerUserDen)
         
-        if numCTxt.text == "" || denCTxt.text == ""{
+        if numFLbl.text == ""{
             randomTryAgain()
+            numberAttempts += 1
+            updateProgress()
         }
         else {
-            if numC == Int(answerUserNum) && denC == Int(answerUserDen) && numF == Int(answerUserWholeF) {
+            if (numC == Int(answerUserNum) && denC == Int(answerUserDen) && numF == Int(answerUserWholeF)) || (numC == 0 && numF == Int(answerUserWholeF)) {
                 if isShow == false{
                     correctAnswers += 1
                     numberAttempts += 1
@@ -194,16 +196,20 @@ class ViewController: UIViewController {
         switch randomIndex{ //0 = Only Frac B is mixed frac; 1 = Only Frac A is mixed; 2 = both are mixed)
         case 0://adding whole numD ONLY
             answerCorrect = Double(numD) + (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
+            print("simplified is Case 0")
         case 1://adding whole numE ONLY
             answerCorrect = Double(numE) + (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
+            print("simplified is Case 1")
         case 2://adding both whole D & E
             answerCorrect = Double(numD) + Double(numE) + (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
+            print("simplified is Case 2")
         default:
             answerCorrect = 9.99
         }
-        //answerCorrect = (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
+        //adding 0.00000001 in case denC is a multiple of 0.33333333
         
-        let d = answerCorrect
+        let c = answerCorrect
+        let d = c //+ 0.00000000000001
         let (wholePart, fractionalPart) = modf(d)
         numF = (Int(wholePart))
         
@@ -211,7 +217,14 @@ class ViewController: UIViewController {
         numC = answerCorrectSimplify.num
         denC = answerCorrectSimplify.den
         
+        print("simplified randomIndex is \(randomIndex)")
+        print("numD is \(numD)")
+        print("numE is \(numE)")
+        print("wholePart is \(wholePart)")
+        print("fractPart is \(fractionalPart)")
         print("simplified numF is \(numF)")
+        print("numC is \(numC)")
+        print("denC is \(denC)")
         print("answerCorrect is \(answerCorrect)")
     }
     
