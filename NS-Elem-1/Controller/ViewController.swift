@@ -220,8 +220,8 @@ class ViewController: UIViewController {
     }
     
     func getAFraction(){
-        randomNumA = Int.random(in: 1 ..< 7)
-        randomDenA = Int.random(in: 1 ..< 7)
+        randomNumA = Int.random(in: 1 ..< 9)
+        randomDenA = Int.random(in: 1 ..< 9)
         
         //divide numerator by 2 to make sure the numerator is as small as possible
         // + 1 is to make sure we don't have a zero numerator
@@ -236,10 +236,14 @@ class ViewController: UIViewController {
         if numA == denA {
             denA += 1
         }
+        let a1 = Double(numA)/Double(denA)
+        let a2 = simplifyFrac(x0: a1)
+        numA = a2.num
+        denA = a2.den
     }
     func getBFraction(){
-        randomNumB = Int.random(in: 1 ..< 7)
-        randomDenB = Int.random(in: 1 ..< 7)
+        randomNumB = Int.random(in: 1 ..< 9)
+        randomDenB = Int.random(in: 1 ..< 9)
         
         if randomNumB < randomDenB {
             numB = randomNumB/2 + 1
@@ -252,6 +256,10 @@ class ViewController: UIViewController {
         if numB == denB{
             denB += 1
         }
+        let b1 = Double(numB)/Double(denB)
+        let b2 = simplifyFrac(x0: b1)
+        numB = b2.num
+        denB = b2.den
     }
 
     func readMe( myText: String) {
