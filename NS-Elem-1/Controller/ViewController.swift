@@ -97,8 +97,8 @@ class ViewController: UIViewController {
         numDLbl.text = ""
         numELbl.text = ""
         
-        randomAWholeD = Int.random(in: 1...5)
-        randomBWholeE = Int.random(in: 1...5)
+        randomAWholeD = Int.random(in: 1...4)
+        randomBWholeE = Int.random(in: 1...4)
         
         randomIndex = Int.random(in: 0...2)
         switch randomIndex{
@@ -140,41 +140,35 @@ class ViewController: UIViewController {
         answerUserWholeF = (numFLbl.text! as NSString).doubleValue
         answerUser = answerUserWholeF + (answerUserNum / answerUserDen)
         
-        if numFLbl.text == ""{
-            randomTryAgain()
-            numberAttempts += 1
-            updateProgress()
-        }
-        else {
-            if (numC == Int(answerUserNum) && denC == Int(answerUserDen) && numF == Int(answerUserWholeF)) || (numC == 0 && numF == Int(answerUserWholeF)) {
-                if isShow == false{
-                    correctAnswers += 1
-                    numberAttempts += 1
-                    updateProgress()
-                    randomPositiveFeedback()
-                }
-                else{
-                    numberAttempts += 1
-                    updateProgress()
-                    readMe(myText: "Next Question!")
-                    isShow = false
-                }
-                let when = DispatchTime.now() + 2
-                DispatchQueue.main.asyncAfter(deadline: when){
-                    //next problem
-                    self.askQuestion()
-                    self.numCTxt.text = ""
-                    self.denCTxt.text = ""
-                    self.numFLbl.text = ""
-                }
-            }
-            else{
-                randomTryAgain()
-                numCTxt.text = ""
-                denCTxt.text = ""
+ 
+        if (numC == Int(answerUserNum) && denC == Int(answerUserDen) && numF == Int(answerUserWholeF)) || (numC == 0 && numF == Int(answerUserWholeF)) {
+            if isShow == false{
+                correctAnswers += 1
                 numberAttempts += 1
                 updateProgress()
+                randomPositiveFeedback()
             }
+            else{
+                numberAttempts += 1
+                updateProgress()
+                readMe(myText: "Next Question!")
+                isShow = false
+            }
+            let when = DispatchTime.now() + 2
+            DispatchQueue.main.asyncAfter(deadline: when){
+                //next problem
+                self.askQuestion()
+                self.numCTxt.text = ""
+                self.denCTxt.text = ""
+                self.numFLbl.text = ""
+            }
+        }
+        else{
+            randomTryAgain()
+            numCTxt.text = ""
+            denCTxt.text = ""
+            numberAttempts += 1
+            updateProgress()
         }
     }
     
@@ -194,18 +188,15 @@ class ViewController: UIViewController {
     func getSimplifiedAnswer(){
         switch randomIndex{ //0 = Only Frac B is mixed frac; 1 = Only Frac A is mixed; 2 = both are mixed)
         case 0://adding whole numD ONLY
-            answerCorrect = Double(numD) + (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
+            answerCorrect = (Double(numD) + (Double(numA)/Double(denA))) * (Double(numB)/Double(denB))
         case 1://adding whole numE ONLY
-            answerCorrect = Double(numE) + (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
+            answerCorrect = (Double(numA)/Double(denA)) * (Double(numE) + (Double(numB)/Double(denB)))
         case 2://adding both whole D & E
-            answerCorrect = Double(numD) + Double(numE) + (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
+            answerCorrect =  (Double(numD) + (Double(numA)/Double(denA))) * (Double(numE) + (Double(numB)/Double(denB)))
         default:
             answerCorrect = 9.99
         }
-        //adding 0.00000001 in case denC is a multiple of 0.33333333
-        
-        let c = answerCorrect
-        let d = c //+ 0.00000000000001
+        let d = answerCorrect
         let (wholePart, fractionalPart) = modf(d)
         numF = (Int(wholePart))
         
@@ -220,8 +211,8 @@ class ViewController: UIViewController {
     }
     
     func getAFraction(){
-        randomNumA = Int.random(in: 1 ..< 9)
-        randomDenA = Int.random(in: 1 ..< 9)
+        randomNumA = Int.random(in: 1 ..< 5)
+        randomDenA = Int.random(in: 1 ..< 5)
         
         //divide numerator by 2 to make sure the numerator is as small as possible
         // + 1 is to make sure we don't have a zero numerator
@@ -242,8 +233,8 @@ class ViewController: UIViewController {
         denA = a2.den
     }
     func getBFraction(){
-        randomNumB = Int.random(in: 1 ..< 9)
-        randomDenB = Int.random(in: 1 ..< 9)
+        randomNumB = Int.random(in: 1 ..< 5)
+        randomDenB = Int.random(in: 1 ..< 5)
         
         if randomNumB < randomDenB {
             numB = randomNumB/2 + 1
