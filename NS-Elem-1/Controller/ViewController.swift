@@ -101,7 +101,6 @@ class ViewController: UIViewController {
         randomBWholeE = Int.random(in: 1...5)
         
         randomIndex = Int.random(in: 0...2)
-        print("askQuestion randomIndex is \(randomIndex)")
         switch randomIndex{
         case 0: //Generate only whole number for Frac A
             numD = randomAWholeD
@@ -196,13 +195,10 @@ class ViewController: UIViewController {
         switch randomIndex{ //0 = Only Frac B is mixed frac; 1 = Only Frac A is mixed; 2 = both are mixed)
         case 0://adding whole numD ONLY
             answerCorrect = Double(numD) + (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
-            print("simplified is Case 0")
         case 1://adding whole numE ONLY
             answerCorrect = Double(numE) + (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
-            print("simplified is Case 1")
         case 2://adding both whole D & E
             answerCorrect = Double(numD) + Double(numE) + (Double(numA)/Double(denA)) + (Double(numB)/Double(denB))
-            print("simplified is Case 2")
         default:
             answerCorrect = 9.99
         }
@@ -216,16 +212,6 @@ class ViewController: UIViewController {
         let answerCorrectSimplify = simplifyFrac(x0: fractionalPart)
         numC = answerCorrectSimplify.num
         denC = answerCorrectSimplify.den
-        
-        print("simplified randomIndex is \(randomIndex)")
-        print("numD is \(numD)")
-        print("numE is \(numE)")
-        print("wholePart is \(wholePart)")
-        print("fractPart is \(fractionalPart)")
-        print("simplified numF is \(numF)")
-        print("numC is \(numC)")
-        print("denC is \(denC)")
-        print("answerCorrect is \(answerCorrect)")
     }
     
     @objc func updateTimer(){
@@ -234,8 +220,8 @@ class ViewController: UIViewController {
     }
     
     func getAFraction(){
-        randomNumA = Int.random(in: 1 ..< 5)
-        randomDenA = Int.random(in: 1 ..< 5)
+        randomNumA = Int.random(in: 1 ..< 7)
+        randomDenA = Int.random(in: 1 ..< 7)
         
         //divide numerator by 2 to make sure the numerator is as small as possible
         // + 1 is to make sure we don't have a zero numerator
@@ -252,8 +238,8 @@ class ViewController: UIViewController {
         }
     }
     func getBFraction(){
-        randomNumB = Int.random(in: 1 ..< 5)
-        randomDenB = Int.random(in: 1 ..< 5)
+        randomNumB = Int.random(in: 1 ..< 7)
+        randomDenB = Int.random(in: 1 ..< 7)
         
         if randomNumB < randomDenB {
             numB = randomNumB/2 + 1
