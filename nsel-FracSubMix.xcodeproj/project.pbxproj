@@ -15,7 +15,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6D5D5F5A21B426E6007F5184 /* nsel-FracMulMix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "nsel-FracMulMix.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D5D5F5A21B426E6007F5184 /* nsel-FracSubMix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "nsel-FracSubMix.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5D5F5D21B426E6007F5184 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6D5D5F5F21B426E6007F5184 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6D5D5F6221B426E6007F5184 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -46,7 +46,7 @@
 		6D5D5F5B21B426E6007F5184 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6D5D5F5A21B426E6007F5184 /* nsel-FracMulMix.app */,
+				6D5D5F5A21B426E6007F5184 /* nsel-FracSubMix.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -92,9 +92,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6D5D5F5921B426E6007F5184 /* nsel-FracMulMix */ = {
+		6D5D5F5921B426E6007F5184 /* nsel-FracSubMix */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6D5D5F6C21B426E7007F5184 /* Build configuration list for PBXNativeTarget "nsel-FracMulMix" */;
+			buildConfigurationList = 6D5D5F6C21B426E7007F5184 /* Build configuration list for PBXNativeTarget "nsel-FracSubMix" */;
 			buildPhases = (
 				6D5D5F5621B426E6007F5184 /* Sources */,
 				6D5D5F5721B426E6007F5184 /* Frameworks */,
@@ -104,9 +104,9 @@
 			);
 			dependencies = (
 			);
-			name = "nsel-FracMulMix";
+			name = "nsel-FracSubMix";
 			productName = "NS-Elem-1";
-			productReference = 6D5D5F5A21B426E6007F5184 /* nsel-FracMulMix.app */;
+			productReference = 6D5D5F5A21B426E6007F5184 /* nsel-FracSubMix.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -124,7 +124,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 6D5D5F5521B426E6007F5184 /* Build configuration list for PBXProject "nsel-FracMulMix" */;
+			buildConfigurationList = 6D5D5F5521B426E6007F5184 /* Build configuration list for PBXProject "nsel-FracSubMix" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -137,7 +137,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				6D5D5F5921B426E6007F5184 /* nsel-FracMulMix */,
+				6D5D5F5921B426E6007F5184 /* nsel-FracSubMix */,
 			);
 		};
 /* End PBXProject section */
@@ -314,7 +314,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eands9.nsel-FracMulMix";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eands9.nsel-FracSubMix";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -332,7 +332,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.eands9.nsel-FracMulMix";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.eands9.nsel-FracSubMix";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -342,7 +342,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6D5D5F5521B426E6007F5184 /* Build configuration list for PBXProject "nsel-FracMulMix" */ = {
+		6D5D5F5521B426E6007F5184 /* Build configuration list for PBXProject "nsel-FracSubMix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6D5D5F6A21B426E7007F5184 /* Debug */,
@@ -351,7 +351,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6D5D5F6C21B426E7007F5184 /* Build configuration list for PBXNativeTarget "nsel-FracMulMix" */ = {
+		6D5D5F6C21B426E7007F5184 /* Build configuration list for PBXNativeTarget "nsel-FracSubMix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6D5D5F6D21B426E7007F5184 /* Debug */,
